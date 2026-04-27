@@ -1,0 +1,98 @@
+class Solution {
+public:
+    string simplifyPath(string path) {
+        vector<string> tokens;
+
+        string token="";
+
+        for(int i = 0; i <= path.size(); i++)
+        {
+            if(i == path.size() || path[i] == '/')
+            {
+                if(token == "" || token == ".")
+                {
+                    // ignore
+                }
+                else if(token == "..")
+                {
+                    if(!tokens.empty()) 
+                    {
+                        tokens.pop_back();
+                    }
+                }
+                else
+                {
+                    tokens.push_back(token);
+                }
+                token = "";
+            }
+            else
+            {
+                token += path[i];
+            }
+        }
+
+        //combined 2 loops in 1 in above
+        // vector<string> tokens;
+
+        // string token="";
+
+        // for(char x: path)
+        // {
+        //     if(x=='/')
+        //     {
+        //         if(token.length()!=0)
+        //         {
+        //             tokens.push_back(token);
+        //             token="";
+        //         }
+        //     }
+        //     else
+        //     {
+        //         token+=x;
+        //     }
+        // }
+
+        // if(token.length()!=0)
+        // {
+        //     tokens.push_back(token);
+        // }
+
+        // vector<string> filtered_tokens;
+
+        // for(string token: tokens)
+        // {
+        //     if(token==".")
+        //     {
+        //         ;
+        //     }
+        //     else if(token=="..")
+        //     {
+        //         if(!filtered_tokens.empty())
+        //         {
+        //             filtered_tokens.pop_back();
+        //         }
+        //     }
+        //     else
+        //     {
+        //         filtered_tokens.push_back(token);
+        //     }
+        // }
+
+        string res="/";
+
+        for(const string &token : tokens) //avoids copy
+        // for(string token: tokens)
+        {
+            res+=token+"/";
+        }
+
+        if(res.length()!=1)
+        {
+            res.pop_back();
+        }
+
+        return res;
+
+    }
+};
